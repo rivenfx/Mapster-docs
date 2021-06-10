@@ -1,3 +1,7 @@
+# 配置实例
+
+
+
 ### 配置实例
 
 在 Mapster 中，默认的配置实例为 `TypeAdapterConfig.GlobalSettings` ，如果需要在不通场景下有不通的设置，Mapster  提供了 `TypeAdapterConfig` 用于实现此需求：
@@ -7,9 +11,9 @@ var config = new TypeAdapterConfig();
 config.Default.Ignore("Id");
 ```
 
-如何给 `TypeAdapterConfig` 实例 添加l类型映射配置？
+如何给 配置实例 添加l类型映射配置？
 
-直接使用使用 `NewConfig` 和 `ForType` 方法即可：
+直接使用 `NewConfig` 和 `ForType` 方法即可：
 
 ```csharp
 config.NewConfig<TSource, TDestination>()
@@ -21,28 +25,26 @@ config.ForType<TSource, TDestination>()
             src => string.Format("{0} {1}", src.FirstName, src.LastName));
 ```
 
-通过将  `TypeAdapterConfig` 实例 作为参数传给 `Adapt` 方法来应用特定的类型映射配置：
+通过将  配置实例 作为参数传给 `Adapt` 方法来应用特定的类型映射配置：
 
-> 注意！不同的   `TypeAdapterConfig` 实例 在程序中一定要作为单例存在，否则会影响性能！
+> 注意！ 配置实例 在程序中一定要作为单例存在，否则会影响性能！
 
 ```csharp
 var result = src.Adapt<TDestination>(config);
 ```
 
-也可以创建一个指定   `TypeAdapterConfig` 的 `Mapper`，使用 `Mapper` 来做映射：
+也可以创建一个指定  `TypeAdapterConfig` 的 `Mapper`，使用 `Mapper` 来做映射：
 
 ```csharp
 var mapper = new Mapper(config);
 var result = mapper.Map<TDestination>(src);
 ```
 
-### 复制
-
-If you would like to create configuration instance from existing configuration, you can use `Clone` method. For example, if you would like to clone from global setting.
+### 复制配置实例
 
 如果想从现有的配置中创建配置实例，可以使用 `Clone` 方法。
 
-例如 复制全局配置 ：
+例如 复制全局配置实例 ：
 
 ```csharp
 var newConfig = TypeAdapterConfig.GlobalSettings.Clone();
@@ -54,14 +56,29 @@ var newConfig = TypeAdapterConfig.GlobalSettings.Clone();
 var newConfig = oldConfig.Clone();
 ```
 
-### Fork
+### Fork 配置实例
 
-`Fork` is similar to `Clone`, but `Fork` will allow you to keep configuration and mapping in the same location. See (https://github.com/MapsterMapper/Mapster/wiki/Config-location) for more info.
+`Fork` 方法内部直接调用 `Clone` 方法，但是使用 `Fork` 方法的形式与使用 `Clone` 方法有些许差别。
+
+`Fork` 方法通过传入委托方法直接增加新的映射配置：
 
 ```csharp
 var forked = mainConfig.Fork(config => 
-    config.ForType<Poco, Dto>()
-            .Map(dest => dest.code, src => src.Id));
+				{
+					config.ForType<Poco, Dto>()
+						.Map(dest => dest.code, src => src.Id);
+				});
 
 var dto = poco.Adapt<Dto>(forked);
 ```
+
+以上代码等同于使用 `Clone` 方法实现的以下代码:
+
+```c#
+var forked = mainConfig.Clone();
+forked.ForType<Poco, Dto>()
+      .Map(dest => dest.code, src => src.Id);
+
+var dto = poco.Adapt<Dto>(forked);
+```
+

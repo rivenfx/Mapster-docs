@@ -1,3 +1,7 @@
+# 映射配置
+
+
+
 ### 映射配置
 
 使用 `TypeAdapterConfig<TSource, TDestination>.NewConfig()`  或  `TypeAdapterConfig<TSource, TDestination>.ForType()` 配置类型映射；
@@ -46,7 +50,7 @@ TypeAdapterConfig<SimplePoco, SimpleDto>.NewConfig().PreserveReference(false);
 
 
 
-### 基于规则的设置
+### 基于规则的映射配置
 
 你可以使用 `When` 方法，当满足某个条件时，进行一些特定的映射操作。
 
