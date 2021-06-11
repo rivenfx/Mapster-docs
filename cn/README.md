@@ -1,6 +1,6 @@
 # 目录
 
-##### [References](https://github.com/MapsterMapper/Mapster/wiki)
+##### [References](References.md)
 ##### 映射
 * [基本使用](Basic-usages.md)
 * [映射器](Mappers.md)
@@ -18,12 +18,12 @@
 * 自定义成员匹配逻辑
   * [自定义映射](Custom-mapping.md)
   * [自定义命名约束](Naming-convention.md)
-  * [Setting by attributes](Setting-by-attributes.md)
-  * [Ignoring members](Ignoring-members.md)
-  * [Rule-based member matching](Rule-based-member-mapping.md)
-  * [Mapping readonly prop](Mapping-readonly-prop.md)
-  * [Mapping non-public members](Mapping-non-public-members.md)
-  * [Two ways & unflattening mapping](Two-ways.md)
+  * [使用特性标签配置映射](Setting-by-attributes.md)
+  * [忽略](Ignoring-members.md)
+  * [基于规则匹配](Rule-based-member-mapping.md)
+  * [映射只读属性](Mapping-readonly-prop.md)
+  * [映射非公开的成员](Mapping-non-public-members.md)
+  * [双向 & unflattening mapping](Two-ways.md)
 * [构造函数映射](Constructor-mapping.md)
 * [映射前/后](Before-after-mapping.md)
 * [设置值](Setting-values.md)
