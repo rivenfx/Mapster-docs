@@ -1,6 +1,8 @@
-# Rule based member mapping
+# 基于规则的成员映射
 
-By default, Mapster will include public fields and properties, but we can change this behavior by `IncludeMember` and `IgnoreMember` method. The methods require predicate, and input types of predicate are:
+Mapster 在默认情况下映射会包含所有的公开字段和属性，但是可以通过 `IncludMember` 和 `IgnoreMember` 方法改变默认的映射行为。
+
+这两个方法需要传入指令参数，指令参数为以下类型：
 
 ```csharp
 public interface IMemberModel
@@ -20,33 +22,39 @@ public enum MemberSide
 }
 ```
 
-### Not allow fields
+### 不映射字段
 
-If you would like to allow only properties not public field to be mapped, you can check from `Info`. Possible values could be `PropertyInfo`, `FieldInfo`, or `ParameterInfo`. In this case, we will reject member of type `FieldInfo`.
+可以通过检查成员的类型来决定是否映射，成员的类型分为  `PropertyInfo`, `FieldInfo`, `ParameterInfo` 几种。
+
+下面这个例子实现了 如果成员类型为 `FieldInfo` 忽略映射的效果：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default
     .IgnoreMember((member, side) => member.Info is FieldInfo);
 ```
 
-### Allow only some list of types to be mapped
+### 只允许映射指定的类型
 
-Suppose you are working with EF, and you would like to skip all navigation properties. Then we will allow only short list of types.
+**通过类型过滤**
 
-**Allow by types**
+只映射存在 `validTypes` 集合中的类型的成员
+
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default
     .IgnoreMember((member, side) => !validTypes.Contains(member.Type));
 ```
-**Allow by Namespaces**
+**通过命名空间过滤**
+
+只映射类型命名空间以 `System` 开头的成员：
+
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default
     .IgnoreMember((member, side) => !member.Type.Namespace.StartsWith("System"));
 ```
 
-### Allow internal members
+### 映射非公开成员
 
-If you would like to map members marked as internal, you can do it by:
+如果想要映射非公开成员，可以查看下面的例子：
 
 ```csharp
     TypeAdapterConfig.GlobalSettings.Default
@@ -54,9 +62,9 @@ If you would like to map members marked as internal, you can do it by:
                                          || member.AccessModifier == AccessModifier.ProtectedInternal);
 ```
 
-### Allow only DataMember attribute
+### 只映射拥有 [DataMember] 特性标记的成员
 
-If you would like to include all members decorated with DataMember attribute, and ignore all members with no DataMember attribute, you can set up by:
+如果想要只映射拥有 `[DataMember]` 特性标记的成员，可以查看下面的例子一样：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default
@@ -65,9 +73,9 @@ TypeAdapterConfig.GlobalSettings.Default
     .IgnoreMember((member, side) => !member.GetCustomAttributes(true).OfType<DataMemberAttribute>().Any());
 ```
 
-### Turn-off non-public setters
+### 只映射公开set的属性
 
-Mapster always allows non-public setters. But you can override by:
+Mapster 默认会映射 `set` 不公开的属性，可以使用以下代码关闭此功能：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default

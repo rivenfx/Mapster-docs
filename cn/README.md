@@ -15,12 +15,12 @@
 * [配置嵌套映射](Config-for-nested-mapping.md)
 
 ##### 设置
-* 自定义成员匹配逻辑
+* 自定义成员映射
   * [自定义映射](Custom-mapping.md)
   * [自定义命名约定](Naming-convention.md)
   * [使用特性标签配置映射](Setting-by-attributes.md)
-  * [忽略](Ignoring-members.md)
-  * [基于规则匹配](Rule-based-member-mapping.md)
+  * [映射忽略](Ignoring-members.md)
+  * [基于规则的映射](Rule-based-member-mapping.md)
   * [映射只读属性](Mapping-readonly-prop.md)
   * [映射非公开的成员](Mapping-non-public-members.md)
   * [双向 & unflattening mapping](Two-ways.md)

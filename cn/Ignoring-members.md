@@ -1,8 +1,8 @@
-# Ignoring members
+# 映射忽略成员
 
-### Ignore
+### 基本的映射忽略
 
-Mapster will automatically map properties with the same names. You can ignore members by using the `Ignore` method.
+Mapster 默认会自动映射所有符合规则的成员。如果想要在映射时忽略某一个成员，可以使用 `Ignore` 方法进行配置：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
@@ -10,18 +10,24 @@ TypeAdapterConfig<TSource, TDestination>
     .Ignore(dest => dest.Id);
 ```
 
-### Rule based ignore
+### 基于规则的映射忽略
 
-You can ignore based on member information by `IgnoreMember` command. Please see https://github.com/MapsterMapper/Mapster/wiki/Rule-based-member-mapping for more info.
+使用 `IgnoreMember` 方法可以根据某个条件决定是否映射成员：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default
     .IgnoreMember((member, side) => !validTypes.Contains(member.Type));
 ```
 
-### IgnoreNonMapped
+> 更多信息请参阅 [基于规则映射成员](Rule-based-member-mapping.md)
 
-You can ignore all non-mapped members by IgnoreNonMapped command. For example, we would like to map only Id and Name.
+
+
+### 忽略未显示映射的成员
+
+使用 `IgnoreNonMapped` 方法可以忽略所有未显示配置映射的成员。
+
+例如，只映射 `Id` 和 `Name`：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
@@ -31,9 +37,11 @@ TypeAdapterConfig<TSource, TDestination>
     .IgnoreNonMapped(true);
 ```
 
-### Ignore by attribute
 
-You can ignore member by decorate with `[AdaptIgnore]`, and you can ignore custom attributes by `IgnoreAttribute` command. Please see https://github.com/MapsterMapper/Mapster/wiki/Setting-by-attributes for more info.
+
+### 通过特性标签配置映射忽略
+
+当一个成员有 `[AdaptIgnore]` 特性标记时，这个成员将不会被映射：
 
 ```csharp
 public class Product {
@@ -45,9 +53,13 @@ public class Product {
 }
 ```
 
-### Ignore conditionally
+> 更多信息请参阅 [使用特性标签配置映射](Setting-by-attributes.md)
 
-You can ignore members conditionally, with condition based on source or target. When the condition is met, mapping of the property will be skipped altogether. This is the difference from custom `Map` with condition, where destination is set to `null` when condition is met.
+
+
+### 不映射满足条件的成员
+
+使用 `IgnoreIf` 方法，当满足条件时将忽略此成员的映射：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
@@ -55,9 +67,13 @@ TypeAdapterConfig<TSource, TDestination>
     .IgnoreIf((src, dest) => !string.IsNullOrEmpty(dest.Name), dest => dest.Name);
 ```
 
-### IgnoreNullValues
+
+
+### 不映射空值
 
 You might would like to merge from input object, By default, Mapster will map all properties, even source properties containing null values. You can copy only properties that have values by using `IgnoreNullValues` method.
+
+Mapster 默认映射时
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>

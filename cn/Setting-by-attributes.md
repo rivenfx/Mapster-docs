@@ -1,10 +1,10 @@
-# Setting by attributes
+# 特性标签
 
 
 
-### AdaptIgnore attribute
+### AdaptIgnore 特性
 
-When a property decorated with `[AdaptIgnore]`, that property will be excluded from Mapping. For example, if we would like to exclude price to be mapped.
+当一个属性有 `[AdaptIgnore]` 标记时，这个属性将不会被映射：
 
 ```csharp
 public class Product {
@@ -16,7 +16,9 @@ public class Product {
 }
 ```
 
-`[AdaptIgnore]` will both ignore when type are used as source or destination. You can ignore only one side by passing `MemberSide`.
+当一个成员有 `[AdaptIgnore]` 标记时，不管是 源到目标 还是 目标到源 的映射都将会忽略这个成员，可以使用 `MemberSide` 指定单方的忽略。
+
+例如，只有 `Product` 当作 源映射时，`Price` 字段才会被忽略：
 
 ```csharp
 public class Product {
@@ -28,26 +30,32 @@ public class Product {
 }
 ```
 
-Above example, `Price` will be ignored only when `Product` is used as source.
+### 忽略自定义的 Attribute
 
-### Ignore custom attributes
+Mapster 还支持忽略标记了任何 Attribute 的属性，使用 `IgnoreAttribute`  方法指定要忽略的 Attribute 。
 
-You can ignore members annotated with any attributes by using the `IgnoreAttribute` method.
+例如，忽略所有标记了 `JsonIgnoreAttribute` 的属性：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default
     .IgnoreAttribute(typeof(JsonIgnoreAttribute));
 ```
 
-However `IgnoreAttribute` will ignore both source and destination. If you would like to ignore only one side, you can use `IgnoreMember`.
+`IgnoreAttribute`  的映射配置会在 源到目标 和 目标到源 时生效，如果只想在单方生效，可以使用 `IgnoreMember` 方法实现：
 
 ```csharp
 config.IgnoreMember((member, side) => member.HasCustomAttribute(typeof(NotMapAttribute)) && side == MemberSide.Source);
 ```
 
-### AdaptMember attribute
-**Map to different name**  
-With `AdaptMember` attribute, you can specify name of source or target to be mapped. For example, if we would like to map `Id` to `Code`.
+
+
+### AdaptMember 特性标记
+
+**映射到不同的名称**
+
+使用 `[AdaptMember]` 特性标记可以实现修改映射的名称。
+
+例如，将 `Id` 映射为 `Code`:
 
 ```csharp
 public class Product {
@@ -57,8 +65,10 @@ public class Product {
 }
 ```
 
-**Map to non-public members**  
-You can also map non-public members with `AdaptMember` attribute.
+**映射非公开成员**  
+
+使用 `[AdaptMember]` 特性标记可以实现映射非公开成员：
+
 ```csharp
 public class Product {
     [AdaptMember]
@@ -67,9 +77,11 @@ public class Product {
 }
 ```
 
-### Rename from custom attributes
+### 根据自定义属性重命名成员
 
-You can rename member to be matched by `GetMemberName`. For example, if we would like to rename property based on `JsonProperty` attribute.
+Mapster 支持重写成员的名称，通过 `GetMemberName` 方法可实现。
+
+例如，通过在类的属性上标记 `JsonProperty` 特性指定属性名称：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default
@@ -78,18 +90,30 @@ TypeAdapterConfig.GlobalSettings.Default
                                     .FirstOrDefault()?.PropertyName);  //if return null, property will not be renamed
 ```
 
-### Include custom attributes
+>  注意！如果 `GetMemberName` 返回结果为空，那么将不会重写成员名称
 
-And if we would like to include non-public members decorated with `JsonProperty` attribute, we can do it by `IncludeAttribute`.
+
+
+
+
+### 包括自定义 Attribute
+
+可以使用  `IncludeAttribute` 实现根据成员拥有的标记特性来映射非公开的成员。
+
+例如，映射所有标记了 `JsonPropertyAttribute` 的非公开成员：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default
     .IncludeAttribute(typeof(JsonPropertyAttribute));
 ```
 
-### Use destination value
 
-You can tell Mapster to use existing property object to map data rather than create new object.
+
+### 目标值
+
+ `[UseDestinationValue]` 特性标记可以让 Mapster 使用现有的值来做映射，而不是创建实例化新对象。
+
+例如下面的例子，`Items` 属性默认为 `new List<OrderItem>()`，使用 `UseDestinationValue` 后 `Items` 在映射时不会创建新对象，而是直接使用已经实例化的集合对象：
 
 ```csharp
 public class Order {

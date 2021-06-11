@@ -22,7 +22,7 @@ TypeAdapterConfig<TSource, TDestination>
         src => src.GenderString); // src.GenderString： "Male" 或 "Female" 字符串类型
 ```
 
-### 有条件的映射
+### 根据条件映射
 
 可以通过设置 `Map` 方法的第三个参数，实现在 源对象 满足某些条件下进行映射；
 
