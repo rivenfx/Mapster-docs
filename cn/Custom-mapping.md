@@ -1,8 +1,8 @@
-# Custom mapping
+# 自定义映射
 
-### Custom member mapping
+### 自定义成员的映射关系
 
-You can customize how Mapster maps values to a property.
+Mapster 支持自定义映射某个属性的值：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
@@ -11,19 +11,24 @@ TypeAdapterConfig<TSource, TDestination>
         src => string.Format("{0} {1}", src.FirstName, src.LastName));
 ```
 
-You can even map when source and destination property types are different.
+
+
+也可以在源属性类型和目标属性类型不同时进行映射：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
     .NewConfig()
-    .Map(dest => dest.Gender,      //Genders.Male or Genders.Female
-        src => src.GenderString); //"Male" or "Female"
+    .Map(dest => dest.Gender,      // dest.Gender： Genders.Male 或 Genders.Female 枚举类型
+        src => src.GenderString); // src.GenderString： "Male" 或 "Female" 字符串类型
 ```
 
-### Mapping with condition
+### 有条件的映射
 
-The Map configuration can accept a third parameter that provides a condition based on the source.
-If the condition is not met, Mapster will retry with next conditions. Default condition should be added at the end without specifying condition. If you do not specify default condition, null or default value will be assigned.
+可以通过设置 `Map` 方法的第三个参数，实现在 源对象 满足某些条件下进行映射；
+
+当存在多个条件的情况下，Mapster 会依次往下执行判断条件是否满足，直到满足条件为止；
+
+当找不到满足条件的映射时，将分配空值或默认值：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
@@ -33,11 +38,11 @@ TypeAdapterConfig<TSource, TDestination>
     .Map(dest => dest.FullName, src => "Mr. " + src.FullName);
 ```
 
-NOTE: if you would like to skip mapping, when condition is met, you can use `IgnoreIf` (https://github.com/MapsterMapper/Mapster/wiki/Ignoring-members#ignore-conditionally).
+> 注意！如果想要在满足条件时跳过映射，应该使用 `IgnoreIf`，详情可参阅 [忽略成员](Ignoring-members.md#ignore-conditionally)
 
-### Mapping to non-public members
+### 映射非公开成员
 
-`Map` command can map to private member by specify name of the members.
+如果存在私有成员需要映射，那么可以使用 `Map` 方法指定成员名称实现私有成员映射：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
@@ -45,59 +50,64 @@ TypeAdapterConfig<TSource, TDestination>
     .Map("PrivateDestName", "PrivateSrcName");
 ```
 
-For more information about mapping non-public members, please see https://github.com/MapsterMapper/Mapster/wiki/Mapping-non-public-members.
+> 更多有关于映射非公开成员的资料，请参阅 [映射非公开成员](Mapping-non-public-members.md) 
 
-### Deep destination property
+### 目标多级属性映射
 
-`Map` can be defined to map deep destination property.
+使用 `Map` 方法可以为 目标多级别属性配置映射：
 
 ```csharp
 TypeAdapterConfig<Poco, Dto>.NewConfig()
     .Map(dest => dest.Child.Name, src => src.Name);
 ```
 
-### Null propagation
+### 空映射
 
-If `Map` contains only property path, null propagation will be applied.
+如果 `src.Child` 为 `null`，那么映射到 `dest.Name` 的配置不会抛出  `NullPointerException` ，而是映射空值：
 
 ```csharp
 TypeAdapterConfig<Poco, Dto>.NewConfig()
     .Map(dest => dest.Name, src => src.Child.Name);
 ```
 
-From above example, if `src.Child` is null, mapping will return null instead of throw `NullPointerException`.
 
-### Multiple sources
 
-**Example 1**: Include property to Poco
+### 多个源
+
+
+
+**映射 Dto 中属性的值到 Poco**
 
 ```csharp
-public class SubDto
-{
-    public string Extra { get; set; }
-}
-public class Dto
-{
-    public string Name { get; set; }
-    public SubDto SubDto { get; set; }
-}
 public class Poco
 {
     public string Name { get; set; }
     public string Extra { get; set; }
 }
+
+public class Dto
+{
+    public string Name { get; set; }
+    public SubDto SubDto { get; set; }
+}
+public class SubDto
+{
+    public string Extra { get; set; }
+}
 ```
 
-In this case, you would like to map all properties from `Dto` to `Poco`, and also include all properties from `Dto.SubDto` to `Poco`. You can do this by just mapping `dto.SubDto` to `poco` in configuration.
+如果想将 `Dto` 中的所有属性和 `Dto.SubDto` 中的所有属性映射到 `Poco`，那么可以通过配置 `dto.SubDto` 映射到 `Poco` 来实现：
 
 ```csharp
 TypeAdapterConfig<Dto, Poco>.NewConfig()
     .Map(poco => poco, dto => dto.SubDto);
 ```
 
-**Example 2**: Mapping 2 objects to poco
 
-In this example, you have `Dto1` and `Dto2`, and you would like to map both objects to a `Poco`. You can do this by wrapping `Dto1` and `Dto2` into a tuple. And then mapping `tuple.Item1` and `tuple.Item2` to `Poco`.
+
+**映射两个类型到一个类型**
+
+如果想将 `Dto1`与`Dto2`两个类型映射到  `Poco` 类型，那么可以通过将 `Dto1` `Dto2` 包装成一个 tuple，然后将 `tuple.Item1` 和 `tuple.Item2` 映射到 `Poco` 来实现：
 
 ```csharp
 TypeAdapterConfig<(Dto1, Dto2), Poco>.NewConfig()

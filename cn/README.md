@@ -17,7 +17,7 @@
 ##### 设置
 * 自定义成员匹配逻辑
   * [自定义映射](Custom-mapping.md)
-  * [自定义命名约束](Naming-convention.md)
+  * [自定义命名约定](Naming-convention.md)
   * [使用特性标签配置映射](Setting-by-attributes.md)
   * [忽略](Ignoring-members.md)
   * [基于规则匹配](Rule-based-member-mapping.md)
