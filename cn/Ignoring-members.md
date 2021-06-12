@@ -69,11 +69,9 @@ TypeAdapterConfig<TSource, TDestination>
 
 
 
-### 不映射空值
+### 不映射空值成员
 
-You might would like to merge from input object, By default, Mapster will map all properties, even source properties containing null values. You can copy only properties that have values by using `IgnoreNullValues` method.
-
-Mapster 默认映射时
+Mapster 默认映射时会将 源对象的所有成员映射到目标对象，如果不想映射空值，那么可以使用 `IgnoreNullValues` 方法进行配置：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
