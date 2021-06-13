@@ -1,18 +1,18 @@
 # FastExpressionCompiler
 
-Need more speed? Let's compile with [FastExpressionCompiler](https://github.com/dadhi/FastExpressionCompiler).
+需要更高的性能？使用  [FastExpressionCompiler](https://github.com/dadhi/FastExpressionCompiler) 作为表达式树编译器
 
-Getting the package
+安装 nuget 包
 
      PM> Install-Package FastExpressionCompiler
 
-Then add following code on start up
+在配置实例上指定表达式树编译器：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Compiler = exp => exp.CompileFast();
 ```
 
-That's it. Now your code will enjoy performance boost. Here is result.
+替换表达式树编译器后，性能对比结果：
 
 | Method                |      Mean |   StdDev |    Error |      Gen 0 | Gen 1 | Gen 2 | Allocated |
 | --------------------- | --------: | -------: | -------: | ---------: | ----: | ----: | --------: |

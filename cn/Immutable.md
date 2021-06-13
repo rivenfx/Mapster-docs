@@ -1,27 +1,29 @@
-# Immutable
+# Immutable 不可变集合支持
 
-# Mapster.Immutable
-Immutable collection supports
+这个插件将支持映射到 Immutable 不可变集合
 
-### Install
+### 安装
 
     PM> Install-Package Mapster.Immutable
 
-### Usage
+### 如何使用
 
-Call `EnableImmutableMapping` from your `TypeAdapterConfig` to enable Immutable collection.
+对配置实例调用 `EnableImmutableMapping` 方法启用对 不可变集合的映射支持：
+
+**全局配置实例**
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.EnableImmutableMapping();
 ```
 
-or 
+**手动实例化的配置实例**
 
 ```csharp
 config.EnableImmutableMapping();
 ```
 
-This will allow mapping to 
+启用Immutable插件将支持映射到以下类型：
+
 - `IImmutableDictionary<,>`
 - `IImmutableList<>`
 - `IImmutableQueue<>`

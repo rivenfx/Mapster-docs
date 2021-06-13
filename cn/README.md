@@ -28,7 +28,7 @@
 * [映射前/后处理](Before-after-mapping.md)
 * [设置值](Setting-values.md)
 * [浅映射和合并映射](Shallow-merge.md)
-* [递归和对象引用](Object-references.md)
+* [递归映射和对象引用](Object-references.md)
 * [自定义转换逻辑](Custom-conversion-logic.md)
 
 
@@ -38,7 +38,7 @@
 * [依赖注入](Dependency-Injection.md)
 * [EF 6 & EF Core](EF-6-&-EF-Core.md)
 * [FastExpressionCompiler](FastExpressionCompiler.md)
-* [Immutable](Immutable.md)
+* [Immutable映射支持](Immutable.md)
 * [Json.net](Json.net.md)
 
 ##### Tools

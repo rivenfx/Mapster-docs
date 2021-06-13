@@ -1,8 +1,8 @@
-# Fluent API Code generation
+# Fluent API 代码生成
 
-### Configuration class
+### 配置类型
 
-Create a configuration class implement `ICodeGenerationRegister`.
+创建一个实现 `ICodeGenerationRegister` 接口的类：
 
 ```csharp
 public class MyRegister : ICodeGenerationRegister
@@ -19,26 +19,27 @@ public class MyRegister : ICodeGenerationRegister
 }
 ```
 
-### Generate models
+### 生成模型
 
-Declare `AdaptFrom`, `AdaptTo`, or `AdaptTwoWays`.
+声明 `AdaptFrom`, `AdaptTo`, 或 `AdaptTwoWays`.
 
-Example:
+例如:
 ```csharp
 config.AdaptTo("[name]Dto")
     ForType<Student>();
 ```
 
-Then Mapster will generate:
+然后Mapster会生成:
 ```csharp
 public class StudentDto {
     ...
 }
 ```
 
-#### Add types to generate
+#### 添加要生成的类型
 
-You can add types by `ForTypes`, `ForAllTypesInNamespace`, `ForType<>`, and you can remove added types using `ExcludeTypes`.
+可以通过 `ForTypes`, `ForAllTypesInNamespace`, `ForType<>` 方法添加要生成类型，并且可以通过 `ExcludeTypes` 方法过滤不生成的类型：
+
 ```csharp
 config.AdaptTo("[name]Dto")
     .ForAllTypesInNamespace(Assembly.GetExecutingAssembly(), "Sample.CodeGen.Domains")
@@ -47,11 +48,11 @@ config.AdaptTo("[name]Dto")
 ```
 
 
-#### Ignore some properties on generation
+#### 在生成时忽略一些成员
 
-By default, code generation will ignore properties that annotated `[AdaptIgnore]` attribute. But you can add more settings which include `IgnoreAttributes`, `IgnoreNoAttributes`, `IgnoreNamespaces`.
+默认代码生成将忽略标记了 `[AdaptIgnore]` 特性的成员，但是可以通过 `IgnoreAttributes`, `IgnoreNoAttributes`, `IgnoreNamespaces` 方法自定义生成代码忽略成员的逻辑。
 
-Example:
+例如，使用  `IgnoreNoAttributes` 方法配置让没有 `[DataMember]` 特性标记的成员在生成时忽略：
 ```csharp
 config.AdaptTo("[name]Dto")
     .ForType<Student>()
@@ -59,12 +60,12 @@ config.AdaptTo("[name]Dto")
 
 public class Student {
     [DataMember]
-    public string Name { get; set; }     //this property will be generated
-    public string LastName { get; set; } //this will not be generated
+    public string Name { get; set; }     // 这个属性将生成到DTO
+    public string LastName { get; set; } // 这个属性将不会生成到DTO
 }
 ```
 
-#### Ignore a property
+#### 忽略属性
 
 ```csharp
 config.AdaptTo("[name]Dto")
@@ -73,40 +74,39 @@ config.AdaptTo("[name]Dto")
     });
 ```
 
-#### Change a property name, type
+#### 更改属性名称、类型
 
 ```csharp
 config.AdaptTo("[name]Dto")
     .ForType<Student>(cfg => {
-        cfg.Map(poco => poco.LastName, "Surname");   //change property name
-        cfg.Map(poco => poco.Grade, typeof(string)); //change property type
+        cfg.Map(poco => poco.LastName, "Surname");   // 修改属性名称
+        cfg.Map(poco => poco.Grade, typeof(string)); // 修改属性类型
     });
 ```
 
-#### Forward property types
+#### 转发属性类型 
 
-By default, code generation will forward type on the same declaration. (For example, `Student` has `ICollection<Enrollment>`, after code generation `StudentDto` will has `ICollection<EnrollmentDto>`).
+默认情况下，代码生成将在同一声明上转发类型。例如，`Student` 有`ICollection<Enrollment>`，代码生成后`StudentDto` 将有`ICollection<EnrollmentDto>`。
 
-You can override this by `AlterType`.
+可以通过 `AlterType` 方法进行重写：
 
 ```csharp
 config.AdaptTo("[name]Dto")
     .ForAllTypesInNamespace(Assembly.GetExecutingAssembly(), "Sample.CodeGen.Domains")
-    .AlterType<Student, Person>();    //forward all Student to Person
+    .AlterType<Student, Person>();    // 转发 Student 到 Person
 ```
 
-#### Generate readonly properties
+#### 生成只读属性
 
-For `AdaptTo` and `AdaptTwoWays`, you can generate readonly properties with `MapToConstructor` setting.
+对于`AdaptTo` 和`AdaptTwoWays`，可以使用`MapToConstructor` 设置生成只读属性：
 
-For example:
 ```csharp
 config.AdaptTo("[name]Dto")
     .ForType<Student>()
     .MapToConstructor(true);
 ```
 
-This will generate:
+这会生成：
 ```csharp
 public class StudentDto {
     public string Name { get; }
@@ -117,30 +117,28 @@ public class StudentDto {
 }
 ```
 
-#### Generate nullable properties
+#### 生成可空属性
 
-For `AdaptFrom`, you can generate nullable properties with `IgnoreNullValues` setting.
+对于 `AdaptFrom`，可以使用 `IgnoreNullValues` 设置生成可为空的属性 :
 
-For example:
 ```csharp
 config.AdaptFrom("[name]Merge")
     .ForType<Student>()
     .IgnoreNullValues(true);
 ```
 
-This will generate:
+这会生成：
 ```csharp
 public class StudentMerge {
     public int? Age { get; set; }
 }
 ```
 
-### Generate extension methods
+### 生成扩展方法
 
-#### Generate using `GenerateMapper`.
-For any POCOs declared with `AdaptFrom`, `AdaptTo`, or `AdaptTwoWays`, you can declare `GenerateMapper` in order to generate extension methods.
+#### 使用 `GenerateMapper` 生成
+对于任何用`AdaptFrom`， `AdaptTo`或 `AdaptTwoWays` 定义的实体类，可以通过 `GenerateMapper` 方法来生成扩展方法：
 
-Example:
 ```csharp
 config.AdaptTo("[name]Dto")
     .ForType<Student>();
@@ -149,7 +147,7 @@ config.GenerateMapper("[name]Mapper")
     .ForType<Student>();
 ```
 
-Then Mapster will generate:
+上面的配置会让Mapster生成扩展方法静态类：
 ```csharp
 public class StudentDto {
     ...

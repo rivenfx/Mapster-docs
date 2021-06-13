@@ -1,8 +1,10 @@
-# 设置值
+# 映射值
 
 ### 计算值
 
-可以使用 `Map` 方法指定计算值的逻辑。例如，根据姓 和名 字段生成完整的姓名:
+可以使用 `Map` 方法指定计算值的逻辑。
+
+例如，将 `FirstName`和`LastName` 拼接生成 `FullName`:
 
 ```csharp
 TypeAdapterConfig<Poco, Dto>.NewConfig()
@@ -11,31 +13,35 @@ TypeAdapterConfig<Poco, Dto>.NewConfig()
 
 ### 变换值
 
-While `Map` method specify logic for single property, `AddDestinationTransform` allows transforms for all items of a type, such as trimming all strings. But really any operation can be performed on the destination value before assignment.
+`Map` 方法只能对单个成员指定映射逻辑，使用 `AddDestinationTransform` 方法可以根据类型指定映射逻辑，例如替换字符串等操作。
 
-当 `Map`方法为单个属性指定逻辑时，' AddDestinationTransform '允许对类型的所有项进行转换，例如修剪所有字符串。但实际上，在赋值之前可以对目标值执行任何操作。
+> 其实在 Mapster 中，只要在映射赋值操作执行之前，可以对映射的值执行任何操作。
 
-**Trim string**
+**字符串 Trim**
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>.NewConfig()
         .AddDestinationTransform((string x) => x.Trim());
 ```
 
-**Null replacement**
+**null字符串替换为空字符串**
+
 ```csharp
 TypeAdapterConfig<TSource, TDestination>.NewConfig()
         .AddDestinationTransform((string x) => x ?? "");
 ```
 
-**Return empty collection if null**
+**null集合返回空集合**
+
 ```csharp
 config.Default.AddDestinationTransform(DestinationTransform.EmptyCollectionIfNull);
 ```
 
-### Passing run-time value
+### 传递动态值
 
-In some cases, you might would like to pass runtime values (ie, current user). On configuration, we can receive run-time value by `MapContext.Current.Parameters`.
+在一些情况下，可能需要传递动态传递值，可以通过调用 `MapContext.Current.Parameters` 来获取动态传递的值。
+
+例如设置 `CreatedBy` 字段为当前登录用户名称，从 `MapContext.Current.Parameters["user"]` 映射：
 
 ```csharp
 TypeAdapterConfig<Poco, Dto>.NewConfig()
@@ -43,7 +49,9 @@ TypeAdapterConfig<Poco, Dto>.NewConfig()
                                  src => MapContext.Current.Parameters["user"]);
 ```
 
-To pass run-time value, we need to use `BuildAdapter` method, and call `AddParameters` method to add each parameter.
+为了动态传递值，需要在调用映射之前使用 `BuildAdapter` 方法，并且在这之后调用 `AddParameters` 方法添加值。
+
+下面的例子展示了如何传递动态参数 `user` ：
 
 ```csharp
 var dto = poco.BuildAdapter()

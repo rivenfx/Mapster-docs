@@ -2,43 +2,45 @@
 
 ## Mapster.Tool
 
-### Install Mapster.Tool
+### 安装 Mapster.Tool
 ```bash
-#skip this step if you already have dotnet-tools.json
+# 如果已经拥有dotnet-tools.json，则跳过此步骤
 dotnet new tool-manifest 
 
 dotnet tool install Mapster.Tool
 ```
 
-### Install Mapster
-For lightweight dependency, you can just install `Mapster.Core`.
+### 安装 Mapster
+简单映射的情况下， 只需要安装 `Mapster.Core`:
+
 ```
 PM> Install-Package Mapster.Core
 ```
 
-However, if you need `TypeAdapterConfig` for advance configuration, you still need `Mapster`.
+如果需要 `TypeAdapterConfig ` 进行复杂映射配置，需要安装 `Mapster`:
+
 ```
 PM> Install-Package Mapster
 ```
 
-### Commands
-Mapster.Tool provides 3 commands
-- **model**: generate models from entities
-- **extension**: generate extension methods from entities
-- **mapper**: generate mappers from interfaces
+### 命令行
+Mapster.Tool 提供了3个命令
+- **model**: 从实体生成模型
+- **extension**: 从实体生成扩展方法
+- **mapper**: 从接口生成映射器
 
-And Mapster.Tool provides following options
-- -a: define input assembly
-- -b: specify base namespace for generating dynamic outputs & namespaces
-- -n: define namespace of generated classes
-- -o: define output directory
-- -p: print full type name (if your DTOs/POCOs having the same name)
-- -r: generate record types instead of POCO types
+并且 Mapster.Tool 提供了以下选项
+- -a: 定义输入程序集
+- -b: 指定用于生成动态输出和名称空间的基本名称空间
+- -n: 定义生成类的命名空间
+- -o: 定义输出目录
+- -p: 打印完整的类型名称(如果Poco/Dto有相同的名称)
+- -r: 生成record 类型而不是POCO类型
 
-### csproj integration
+### 集成到csproj文件
 
-#### Generate manually
-add following code to your `csproj` file.
+#### 手动生成
+将以下代码添加到 `csproj` 文件中：
 ```xml
   <Target Name="Mapster">
     <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet build" />
@@ -48,13 +50,13 @@ add following code to your `csproj` file.
     <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster mapper -a &quot;$(TargetDir)$(ProjectName).dll&quot;" />
   </Target>
 ```
-to generate run following command on `csproj` file directory:
+在 `csproj` 文件目录下生成如下命令:
 ```bash
 dotnet msbuild -t:Mapster
 ```
 
-#### Generate automatically on build
-add following code to your `csproj` file.
+#### 在Build时自动生成
+将以下代码添加到 `csproj` 文件中：
 ```xml
   <Target Name="Mapster" AfterTargets="AfterBuild">
     <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore" />
@@ -64,8 +66,8 @@ add following code to your `csproj` file.
   </Target>
 ```
 
-#### Clean up
-add following code to your `csproj` file.
+#### 清理
+将以下代码添加到 `csproj` 文件中：
 ```xml
   <ItemGroup>
     <Generated Include="**\*.g.cs" />
@@ -74,14 +76,14 @@ add following code to your `csproj` file.
     <Delete Files="@(Generated)" />
   </Target>
 ```
-to clean up run following command:
+清理命令如下:
 ```bash
 dotnet msbuild -t:CleanGenerated
 ```
 
-#### Generate full type name
+#### 生成完整类型名
 
-If your POCOs and DTOs have the same name, you might need to generate using full type name, by adding `-p` flag.
+如果POCOs和dto有相同的名称，您可能需要使用完整的类型名称来生成，通过 `-p` 选项：
 ```xml
   <Target Name="Mapster">
     <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet build" />
@@ -92,8 +94,8 @@ If your POCOs and DTOs have the same name, you might need to generate using full
   </Target>
 ```
 
-#### Dynamic outputs & namespaces
-For example you have following structure.
+#### 动态输出和名称空间
+例如，存在以下结构：
 ```
 Sample.CodeGen
 - Domains
@@ -103,13 +105,14 @@ Sample.CodeGen
     - Domain2
 ```
 
-And if you can specify base namespace as `Sample.CodeGen.Domains`
+如果将基本名称空间指定为 `Sample.CodeGen.Domains`:
+
 ```xml
 <Exec WorkingDirectory="$(ProjectDir)" 
     Command="dotnet mapster model -a &quot;$(TargetDir)$(ProjectName).dll&quot; -n Sample.CodeGen.Generated -b Sample.CodeGen.Domains" />
 ```
 
-Code will be generated to
+代码将生成到:
 ```
 Sample.CodeGen
 - Generated
@@ -121,12 +124,12 @@ Sample.CodeGen
 
 
 
-### Generate DTOs and mapping codes
+### 生成Dto和映射代码
 
-There are 3 flavors, to generate DTOs and mapping codes
-- [Fluent API](https://github.com/MapsterMapper/Mapster/wiki/Fluent-API-Code-generation): if you don't want to touch your domain classes, or generate DTOs from domain types in different assembly.
-- [Attributes](https://github.com/MapsterMapper/Mapster/wiki/Attribute-base-Code-generation): if you would like to keep mapping declaration closed to your domain classes.
-- [Interfaces](https://github.com/MapsterMapper/Mapster/wiki/Interface-base-Code-generation): if you already have DTOs, and you would like to define mapping through interfaces.
+有3种方式来生成dto和映射代码
+- [Fluent API](Fluent-API-Code-generation.md): 如果不想编辑实体类定义，或者从不同程序集中的实体类型生成dto。
+- [Attributes](Attribute-base-Code-generation.md): 如果想保持映射配置到实体类。
+- [Interfaces](Interface-base-Code-generation.md): 如果已经有dto，并且想通过接口定义映射。
 
 ### Sample
 
