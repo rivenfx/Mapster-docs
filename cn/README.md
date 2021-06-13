@@ -8,11 +8,11 @@
 
 ##### 配置
 * [映射配置](Configuration.md)
-* [配置继承](Config-inheritance.md)
-* [配置实例](Config-instance.md)
-* [配置位置](Config-location.md)
-* [配置验证和编译](Config-validation-&-compilation.md)
-* [配置嵌套映射](Config-for-nested-mapping.md)
+* [映射配置继承](Config-inheritance.md)
+* [映射配置实例](Config-instance.md)
+* [映射配置位置](Config-location.md)
+* [映射配置验证和编译](Config-validation-&-compilation.md)
+* [映射配置嵌套映射](Config-for-nested-mapping.md)
 
 ##### 设置
 * 自定义成员映射
@@ -41,7 +41,7 @@
 * [Immutable映射支持](Immutable.md)
 * [Json.net](Json.net.md)
 
-##### Tools
+##### 工具
 * [Mapster.Tool](Mapster.Tool.md)
   * [Fluent API](Fluent-API-Code-generation.md)
   * [Attributes](Attribute-base-Code-generation.md)
