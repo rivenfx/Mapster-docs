@@ -1,6 +1,6 @@
 # 目录
 
-##### [参考](References.md)
+##### [References](References.md)
 ##### 映射
 * [基本使用](Basic-usages.md)
 * [映射器](Mappers.md)

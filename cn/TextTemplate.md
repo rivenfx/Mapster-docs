@@ -2,7 +2,7 @@
 
 ### TextTemplate
 ```
-    PM> Install-Package ExpressionTranslator
+PM> Install-Package ExpressionTranslator
 ```
 
 虽然 Mapster 支持 [步进调试](Debugging.md)，但是所有映射都是在运行时生成的。所有可能的映射错误在运行时捕获，导致我们失去了静态分析查找问题的能力。

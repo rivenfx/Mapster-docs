@@ -1,6 +1,6 @@
 # 映射前/映射后
 
-### 
+
 
 ### 在映射之前执行操作
 
@@ -34,7 +34,7 @@ TypeAdapterConfig.GlobalSettings.ForDestinationType<IValidatable>()
 
 ### 在 映射前/映射后 使用 Expression 生成代码
 
-`BeforeMapping`和 `AfterMapping `接受 `Action` 参数， `Action` 中可以有多行语句但不能动态生成代码。
+`BeforeMapping`和 `AfterMapping ` 接受 `Action` 参数， `Action` 中可以有多行语句但不能动态生成代码。
 
 而 `BeforeMappingInline` 和 `AfterMappingInline` 接受 `Expression` 作为参数，  `Expression` 可以动态编译为代码，实现懒加载等等。
 

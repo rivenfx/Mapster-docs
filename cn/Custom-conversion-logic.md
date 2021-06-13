@@ -7,7 +7,6 @@
 例如将字符串映射为 `char[]`:
 
 ```csharp
-//Example of transforming string to char[].
 TypeAdapterConfig<string, char[]>.NewConfig()
     .MapWith(str => str.ToCharArray());
 ```

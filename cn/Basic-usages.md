@@ -2,7 +2,7 @@
 
 ### 映射到一个新的对象
 
-Mapster 创建 **目标对象** 并将值映射到它。
+Mapster 将会创建一个目标类型的对象，并将值设置到目标对象。
 
 ```csharp
 var destObject = sourceObject.Adapt<Destination>();
@@ -10,7 +10,7 @@ var destObject = sourceObject.Adapt<Destination>();
 
 ### 映射到现有对象
 
-创建一个对象，Mapster将把 **源对象** 映射到这个对象。
+创建一个对象，Mapster 将把 **源对象** 映射到这个对象。
 
 ```csharp
 sourceObject.Adapt(destObject);
