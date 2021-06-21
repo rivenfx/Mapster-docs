@@ -1,15 +1,15 @@
 # Mapster-docs
 
-[Mapster](https://github.com/MapsterMapper/Mapster) 是一个优秀高效的对象映射框架，由于没有中文文档导致在中国国内使用并不广泛，因此我翻译了 [Mapster](https://github.com/MapsterMapper/Mapster)  的官方文档帮助大家更好的学习和使用这个框架。
+[Mapster](https://github.com/MapsterMapper/Mapster) 是一个优秀对象映射框架，由于没有中文文档导致在中国国内使用并不广泛，因此我翻译了 [Mapster](https://github.com/MapsterMapper/Mapster)  的官方文档帮助大家更好的学习和使用这个框架。
 
 > 因个人能力有限，如有谬误之处还请指正，多多包涵。
 
 
 ## 文档列表
 
-[Mapster 官方英文文档](https://github.com/MapsterMapper/Mapster/wiki)
+[Mapster 官方英文文档 (English document)](https://github.com/MapsterMapper/Mapster/wiki)
 
-[中文文档](cn/README.md)
+[中文文档 （Chinese document）](cn/README.md)
 
 
 ## LICENSES
