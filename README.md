@@ -53,11 +53,11 @@
 * [Json.net](cn/Json.net.md)   （[原文](https://github.com/MapsterMapper/Mapster/wiki/Json.net)）
 
 ##### Tools
-* [Mapster.Tool](cn/Mapster.Tool.md)    （[原文](https://github.com/MapsterMapper/Mapster/wiki/Mapster.Tool)）
-  * [Fluent API](cn/Fluent-API-Code-generation.md)   （[原文](https://github.com/MapsterMapper/Mapster/wiki/Fluent-API-Code-generation)）
-  * [Attributes](cn/Attribute-base-Code-generation.md)   （[原文](https://github.com/MapsterMapper/Mapster/wiki/Attribute-base-Code-generation)）
-  * [Interfaces](cn/Interface-base-Code-generation.md)   （[原文](https://github.com/MapsterMapper/Mapster/wiki/Interface-base-Code-generation)）
-* [TextTemplate](cn/TextTemplate.md)   （[原文](https://github.com/MapsterMapper/Mapster/wiki/TextTemplate)）
+* [Mapster.Tool 代码生成器](cn/Mapster.Tool.md)    （[原文](https://github.com/MapsterMapper/Mapster/wiki/Mapster.Tool)）
+  * [基于 Fluent API 生成代码](cn/Fluent-API-Code-generation.md)   （[原文](https://github.com/MapsterMapper/Mapster/wiki/Fluent-API-Code-generation)）
+  * [基于 Attribute 生成代码](cn/Attribute-base-Code-generation.md)   （[原文](https://github.com/MapsterMapper/Mapster/wiki/Attribute-base-Code-generation)）
+  * [基于 Interface 生成代码](cn/Interface-base-Code-generation.md)   （[原文](https://github.com/MapsterMapper/Mapster/wiki/Interface-base-Code-generation)）
+* [TextTemplate 代码生成器](cn/TextTemplate.md)   （[原文](https://github.com/MapsterMapper/Mapster/wiki/TextTemplate)）
 
 
 
