@@ -9,11 +9,11 @@
 
 ##### 配置
 * [映射配置](Configuration.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Configuration)*
-* [配置继承](Config-inheritance.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Config-inheritance)*
-* [配置实例](Config-instance.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Config-instance)*
-* [配置位置](Config-location.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Config-location)*
-* [配置验证和编译](Config-validation-&-compilation.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Config-validation-&-compilation)*
-* [配置嵌套映射](Config-for-nested-mapping.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Config-for-nested-mapping)*
+* [映射配置继承](Config-inheritance.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Config-inheritance)*
+* [映射配置实例](Config-instance.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Config-instance)*
+* [映射配置位置](Config-location.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Config-location)*
+* [映射配置验证和编译](Config-validation-&-compilation.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Config-validation-&-compilation)*
+* [映射配置嵌套映射](Config-for-nested-mapping.md)    *[原文](https://github.com/MapsterMapper/Mapster/wiki/Config-for-nested-mapping)*
 
 ##### 设置
 * 自定义成员映射
@@ -24,9 +24,9 @@
   * [基于规则的映射](Rule-based-member-mapping.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Rule-based-member-mapping)*
   * [映射只读属性](Mapping-readonly-prop.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Mapping-readonly-prop)*
   * [映射非公开的成员](Mapping-non-public-members.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Mapping-non-public-members)*
-  * [双向 & unflattening mapping](Two-ways.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Two-ways)*
+  * [双向 & 逆扁平映射](Two-ways.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Two-ways)*
 * [构造函数映射](Constructor-mapping.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Constructor-mapping)*
-* [映射前/后](Before-after-mapping.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Before-after-mapping)*
+* [映射前/后处理](Before-after-mapping.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Before-after-mapping)*
 * [设置值](Setting-values.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Setting-values)*
 * [浅映射和合并映射](Shallow-merge.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Shallow-merge)*
 * [递归和对象引用](Object-references.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Object-references)*
