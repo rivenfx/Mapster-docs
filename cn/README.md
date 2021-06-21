@@ -29,7 +29,7 @@
 * [映射前/后处理](Before-after-mapping.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Before-after-mapping)*
 * [值的映射](Setting-values.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Setting-values)*
 * [拷贝与合并](Shallow-merge.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Shallow-merge)*
-* [递归和对象引用](Object-references.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Object-references)*
+* [对象引用](Object-references.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Object-references)*
 * [自定义转换逻辑](Custom-conversion-logic.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Custom-conversion-logic)*
 
 
