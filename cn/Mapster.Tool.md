@@ -1,7 +1,5 @@
 # Mapster.Tool
 
-## Mapster.Tool
-
 ### 安装 Mapster.Tool
 ```bash
 # 如果已经拥有dotnet-tools.json，则跳过此步骤
@@ -134,3 +132,4 @@ Sample.CodeGen
 ### Sample
 
 - https://github.com/MapsterMapper/Mapster/tree/master/src/Sample.CodeGen
+

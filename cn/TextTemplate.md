@@ -1,6 +1,6 @@
-# TextTemplate
+# 使用 TextTemplate 生成代码
 
-### TextTemplate
+### 安装nuget包
 ```
 PM> Install-Package ExpressionTranslator
 ```

@@ -1,4 +1,4 @@
-# Fluent API 代码生成
+# 基于 Fluent API 生成代码
 
 ### 配置类型
 

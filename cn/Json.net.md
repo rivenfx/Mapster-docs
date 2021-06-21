@@ -22,8 +22,10 @@ TypeAdapterConfig.GlobalSettings.EnableJsonMapping();
 config.EnableJsonMapping();
 ```
 
-启用JSON.NET插件将支持映射到以下功能：
+启用 [JSON.NET](https://www.nuget.org/packages/Mapster.JsonNet/) 插件将支持以下功能：
 
-- 映射 JSON.NET 特有的类型，例如将 `JToken`, `JArray`, `JObject` 映射到自定义类型或将自定义类型映射到这些类型。
-- 对 JSON.NET 的类型支持基于字符串的序列化和反序列化。
+- 映射 [JSON.NET](https://www.nuget.org/packages/Newtonsoft.Json) 特有的类型，例如将 `JToken`, `JArray`, `JObject` 映射到自定义类型或将自定义类型映射到这些类型。
+- 对 [JSON.NET](https://www.nuget.org/packages/Newtonsoft.Json) 类型支持基于字符串的序列化和反序列化。
+
+
 

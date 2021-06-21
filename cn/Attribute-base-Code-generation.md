@@ -1,4 +1,4 @@
-# 基于 Attribute 的代码生成
+# 基于 Attribute 生成代码
 
 ### 生成模型
 
