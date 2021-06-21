@@ -27,8 +27,8 @@
   * [双向 & 逆扁平映射](Two-ways.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Two-ways)*
 * [构造函数映射](Constructor-mapping.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Constructor-mapping)*
 * [映射前/后处理](Before-after-mapping.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Before-after-mapping)*
-* [设置值](Setting-values.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Setting-values)*
-* [浅映射和合并映射](Shallow-merge.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Shallow-merge)*
+* [值的映射](Setting-values.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Setting-values)*
+* [拷贝与合并](Shallow-merge.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Shallow-merge)*
 * [递归和对象引用](Object-references.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Object-references)*
 * [自定义转换逻辑](Custom-conversion-logic.md)   *[原文](https://github.com/MapsterMapper/Mapster/wiki/Custom-conversion-logic)*
 
