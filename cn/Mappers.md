@@ -4,7 +4,7 @@
 
 ### 扩展方法
 
-你可以从任何地方调用 `Adapt` 方法。
+可以从任何地方调用 `Adapt` 方法。
 
 ```csharp
 var dest = src.Adapt<TSource, TDestination>();
@@ -16,7 +16,7 @@ var dest = src.Adapt<TSource, TDestination>();
 var dest = src.Adapt<TDestination>();
 ```
 
-这两个扩展方法做的都是同样的事情。`src.Adapt<TDestination>` 将把 `src` 转换为 object 类型。因此，如果你转行的是值类型，那么请使用 `src.Adapt<TSource, TDestination>` 以避免不必要的装箱/拆箱。
+这两个扩展方法做的都是同样的事情。`src.Adapt<TDestination>` 将把 `src` 转换为 object 类型。因此，如果要转换的是值类型，那么请使用 `src.Adapt<TSource, TDestination>` 以避免不必要的装箱/拆箱。
 
 ### 映射器实例 ( Mapper )
 
@@ -36,7 +36,7 @@ var result = mapper.Map<TDestination>(source);
 
 ### 构建器 ( Builder )
 
-在大多数情况下，`Adapt`方法就足够了，但有时我们需要构建器来支持一些特殊的场景。
+在大多数情况下，`Adapt`方法就足够了，但有时需要使用构建器来支持一些特殊的场景。
 
 一个基本的例子 —— 传递运行时的值：
 
@@ -46,7 +46,7 @@ var dto = poco.BuildAdapter()
               .AdaptToType<SimpleDto>();
 ```
 
-如果你使用mapper实例，你可以通过 `From` 创建构建器。
+如果使用 `IMapper` 实例，你可以通过 `From` 创建构建器。
 
 ```csharp
 var dto = mapper.From(poco)
@@ -58,5 +58,5 @@ var dto = mapper.From(poco)
 
 ### 代码生成
 
-请参阅 [Mapster.Tool](Mapster.Tool.md)来 生成特定的映射器类，而不是使用提供的映射器。
+请参阅 [Mapster.Tool](Mapster.Tool.md) 来生成特定类型的映射配置，而不是使用默认的映射器。
 

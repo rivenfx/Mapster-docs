@@ -1,8 +1,10 @@
-# Object references
+# 对象引用
 
-### Preserve reference (preventing circular reference stackoverflow)
+### 防止循环引用
 
-When mapping objects with circular references, a stackoverflow exception will result. This is because Mapster will get stuck in a loop trying to recursively map the circular reference. If you would like to map circular references or preserve references (such as 2 properties pointing to the same object), you can do it by setting `PreserveReference` to `true`
+当映射类型存在循环引用时，会导致 Mapster 试图递归映射循环引用并抛出  **stackoverflow** 异常。
+
+如果想要映射循环引用或保留引用(例如指向同一个对象的两个属性)，可以使用 `PreserveReference` 方法并将参数设置为 `true` 来实现这个需求：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
@@ -10,13 +12,13 @@ TypeAdapterConfig<TSource, TDestination>
     .PreserveReference(true);
 ```
 
-NOTE: in Mapster setting is per type pair, not per hierarchy (see https://github.com/MapsterMapper/Mapster/wiki/Config-for-nested-classes). Therefore, you need to apply config to all type pairs.
+> 注意！ Mapster 配置的是类型到类型，而不是每个层次结构，所以在使用时需要显示配置所有类型.
 
-NOTE: you might need to use `MaxDepth`. `PreserveReference` doesn't support EF Query (`ProjectTo`)
+> 注意！`PreserveReference` 不支持对 `ProjectTo` EF `IQueryable` 的映射 ！
 
-### MaxDepth
+### 映射深度 —— MaxDepth
 
-Rather than `PreserveReference`, you could also try `MaxDepth`. `MaxDepth` will map until it reaches the defined limit. Unlike `PreserveReference`, `MaxDepth` also works with queryable projection.
+对于递归映射，可以尝试使用 `MaxDepth` 方法指定映射深度，将在到达指定映射深度时停止映射。并且 `MaxDepth` 支持对 `IQueryable` 的映射。
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
@@ -24,13 +26,14 @@ TypeAdapterConfig<TSource, TDestination>
     .MaxDepth(3);
 ```
 
-NOTE 1: `MaxDepth` starts with 1, means you will copy only primitives. POCO class and collection of POCO each count as a depth of 1.
+> 注意！
+>
+> * `MaxDepth` 映射深度最小应该为 1，深度为1将映射对象本身成员，不继续映射嵌套对象的成员。
+> * `MaxDepth` 未限制最大深度，但不应该将深度设置太大，因为每增加一级深度就会生成一个映射逻辑，若深度过大会导致大量的内存占用。
 
-NOTE 2: even `MaxDepth` has no maximum value, you shouldn't input large number. Each depth will generate a mapping logic, otherwise it will consume a lot of memory.
+### 浅拷贝
 
-### Shallow copy
-
-By default, Mapster will recursively map nested objects. You can do shallow copying by setting `ShallowCopyForSameType` to `true`.
+Mapster 默认会递归映射嵌套对象。可以通过 `ShallowCopyForSameType` 方法将参数设置为`true`来进行浅拷贝：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
@@ -38,13 +41,13 @@ TypeAdapterConfig<TSource, TDestination>
     .ShallowCopyForSameType(true);
 ```
 
-### Mapping very large objects
+### 大对象映射
 
-For performance optimization, Mapster tried to inline class mapping. This process will takes time if your models are complex.
+为了优化性能，Mapster 会尝试内联类映射。如果映射的模型很复杂，那么这个过程将花费很多时间。
 
 ![image-20210611093257011](Object-references.assets/image-20210611093257011.png)
 
-You can skip inlining process by:
+可以通过调用 `AvoidInlineMapping` 方法跳过内联过程：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default

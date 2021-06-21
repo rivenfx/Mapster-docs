@@ -1,34 +1,36 @@
-# Debugging
+# 调试映射
 
-### Step-into debugging
+### 步进调试
+
+> 这个插件允许使用Roslyn执行步进调试！
+
+> 步进调试就是默认 F11 快捷键的调试
 
     PM> Install-Package ExpressionDebugger
 
-This plugin allows you to perform step-into debugging using Roslyn!
+##### 如何使用
 
-##### Usage
-
-Then add following code on start up (or anywhere before mapping is compiled)
+在启动时或编译映射之前的任何地方添加以下代码：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Compiler = exp => exp.CompileWithDebugInfo();
 ```
 
-Now in your mapping code (only in `DEBUG` mode).
+现在处于 DEBUG 模式时，可以步进调试映射代码：
 
 ```csharp
-var dto = poco.Adapt<SimplePoco, SimpleDto>(); //<--- you can step-into this function!!
+var dto = poco.Adapt<SimplePoco, SimpleDto>(); //<--- 你可以步进调试到这段代码中
 ```
 
-![image](https://cloud.githubusercontent.com/assets/5763993/26521773/180427b6-431b-11e7-9188-10c01fa5ba5c.png)
+![image-20210613142212048](Debugging.assets/image-20210613142212048.png)
 
-##### Using internal classes or members
+##### 使用内部类或成员
 
-`private`, `protected` and `internal` aren't allowed in debug mode.
+调试模式不支持  `private` 、`protected` 、`internal`
 
-### Get mapping script
+### 查看映射逻辑
 
-We can also see how Mapster generates mapping logic with `ToScript` method.
+通过 `ToScript` 方法可以查看 Mapster 生成的映射逻辑：
 
 ```
 var script = poco.BuildAdapter()
@@ -36,18 +38,20 @@ var script = poco.BuildAdapter()
                 .ToScript();
 ```
 
-### Visual Studio for Mac
-To step-into debugging, you might need to emit file
+### 在Visual Studio for Mac中调试映射
+在 Visual Studio for Mac 中进行步进映射调试，需要配置 `EmitFile` 为 `true`：
+
 ```csharp
 var opt = new ExpressionCompilationOptions { EmitFile = true };
 TypeAdapterConfig.GlobalSettings.Compiler = exp => exp.CompileWithDebugInfo(opt);
 ...
-var dto = poco.Adapt<SimplePoco, SimpleDto>(); //<-- you can step-into this function!!
+var dto = poco.Adapt<SimplePoco, SimpleDto>(); //<--- 你可以步进调试到这段代码中
 ```
 
-### Do not worry about performance
-In `RELEASE` mode, Roslyn compiler is actually faster than default dynamic compilation by 2x. 
-Here is the result:
+### 是否会对性能产生影响
+在 `RELEASE` 编译模式下，Roslyn 编译器比默认的动态编译快2倍，因此不必担心会出现性能下降问题。
+
+结果如下:
 
 | Method                   |      Mean |   StdDev |    Error |      Gen 0 | Gen 1 | Gen 2 | Allocated |
 | ------------------------ | --------: | -------: | -------: | ---------: | ----: | ----: | --------: |

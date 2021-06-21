@@ -1,8 +1,8 @@
-# Mapping readonly prop
+# 映射只读属性
 
-### Non public setter
+### 映射非公开 `set` 的属性
 
-Mapster can map to non public setter automatically.
+Mapster 默认会自动映射非公开 `set` 的属性：
 
 ```csharp
 public class Order {
@@ -11,9 +11,9 @@ public class Order {
 }
 ```
 
-### Using UseDestinationValue attribute
+### [UseDestinationValue] 特性标签
 
-You can make your type pure readonly and annotate with [UseDestinationValue].
+给属性添加特性标签 `[UseDestinationValue]` ，未指定 `set` 的属性也能进行映射：
 
 ```csharp
 public class Order {
@@ -24,9 +24,9 @@ public class Order {
 }
 ```
 
-### Convention based setup
+### 基于约定配置映射
 
-Or you can apply without annotate each type, for example, if you would like all readonly `ICollection<>` to use destination value.
+如果希望所有未指定 `set` 的 `ICollection<>` 都参与映射，那么可以使用 `UseDestinationValue` 方法进行配置：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default

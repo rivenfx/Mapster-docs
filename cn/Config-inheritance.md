@@ -10,7 +10,7 @@
 
 Mapster 默认会把 源类型的 映射配置 应用到 源类型的子类。
 
-如果你创建了一个 `SimplePoco` -> `SimpleDto` 的映射配置:
+如创建了一个 `SimplePoco` -> `SimpleDto` 的映射配置:
 
 ```csharp
 TypeAdapterConfig<SimplePoco, SimpleDto>.NewConfig()
@@ -24,7 +24,7 @@ var dest = TypeAdapter.Adapt<DerivedPoco, SimpleDto>(src);
 //dest.Name = src.Name + "_Suffix"
 ```
 
-如果不希望子类使用父类映射配置，可以设置 `AllowImplicitSourceInheritance` 关闭：
+如果不希望子类使用父类映射配置，可以设置 `AllowImplicitSourceInheritance` 为 `false` 关闭继承：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.AllowImplicitSourceInheritance = false;

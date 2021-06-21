@@ -1,16 +1,18 @@
-# Dependency Injection
+# 依赖注入
 
 
 
-### Dependency injection support
+### 依赖注入支持
+
+> 这个插件允许将映射配置添加到依赖注入容器中
 
     PM> Install-Package Mapster.DependencyInjection
 
-This plugin allows you to inject service into mapping configuration.
 
-#### Usage
 
-On startup, register `TypeAdapterConfig`, and `ServiceMapper`.
+#### 如何使用
+
+在启动时，注册 `TypeAdapterConfig` 和 `ServiceMapper`：
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -25,20 +27,22 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-NOTE: lifetime of `ServiceMapper` is up to services you would like to inject. It can be singleton, if you inject only singleton services. Or it can be transient, if any injected services is transient.
+> 注意！ `ServiceMapper` 可以根据实际的需求来决定在依赖注入容器的生命周期，但 `TypeAdapterConfig` 必须是 `Singleton`。
 
-##### Mapping configuration
+##### 映射配置
 
-You can get service by `MapContext.Current.GetService<>()`, for example
+可以通过  `MapContext.Current.GetService<TService>()`  从依赖注入容器中获取服务。
+
+例如从 `MapContext.Current.GetService` 获取 `INameFormatter` 服务：
 
 ```csharp
 config.NewConfig<Poco, Dto>()
     .Map(dest => dest.Name, src => MapContext.Current.GetService<INameFormatter>().Format(src.Name));
 ```
 
-##### Mapping
+##### 映射
 
-If you setup service injection, you need to use mapper instance to map object.
+如果配置了依赖注入，那么需要注入 `IMapper` 实例用于对象映射：
 
 ```csharp
 public class FooService {

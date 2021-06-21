@@ -56,7 +56,7 @@ var newConfig = TypeAdapterConfig.GlobalSettings.Clone();
 var newConfig = oldConfig.Clone();
 ```
 
-### Fork 配置实例
+### Fork 配置
 
 `Fork` 方法内部直接调用 `Clone` 方法，但是使用 `Fork` 方法的形式与使用 `Clone` 方法有些许差别。
 

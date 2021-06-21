@@ -1,10 +1,10 @@
-# Interface base Code generation
+# 基于接口生成代码
 
-### Generate mapper from interface
+### 从接口生成映射器
 
-Annotate your interface with `[Mapper]` in order for tool to pickup for generation.
+给接口添加`[Mapper]` 特性标记，以便让代码生成器获取生成映射器。
 
-This is example interface.
+例：
 ```csharp
 [Mapper]
 public interface IProductMapper
@@ -13,23 +13,23 @@ public interface IProductMapper
 }
 ```
 
-You can add multiple members as you want. All member names are flexible, but signature must be in following patterns:
+并且可以根据需要添加多个成员。所有成员的名字都是灵活的，但参数必须使用以下规则:
 ```csharp
 [Mapper]
 public interface ICustomerMapper
 {
-    //for queryable
+    // 对于 IQueryable
     Expression<Func<Customer, CustomerDTO>> ProjectToDto { get; }
     
-    //map from POCO to DTO
+    // 映射 Poco 到 DTO
     CustomerDTO MapToDto(Customer customer);
 
-    //map to existing object
+    // 映射到已存在的对象
     Customer MapToExisting(CustomerDTO dto, Customer customer);
 }
 ```
 
-If you have configuration, it must be in `IRegister`
+如果有映射配置，它必须在实现了 `IRegister` 的类中：
 
 ```csharp
 public class MyRegister : IRegister

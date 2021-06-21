@@ -1,20 +1,20 @@
 # 映射非公开的成员
 
-### EnableNonPublicMembers
+### 启用映射非公开成员
 
-This will allow Mapster to set to all non-public members.
+调用 `EnableNonPublicMembers` 方法配置启用映射非公开成员：
 
 ```csharp
-//type pair
+// 特定类型
 TypeAdapterConfig<Poco, Dto>.NewConfig().EnableNonPublicMembers(true);
 
-//global
+// 全局默认
 TypeAdapterConfig.GlobalSettings.Default.EnableNonPublicMembers(true);
 ```
 
-### AdaptMember attribute
+### [AdaptMember ] 特性标签
 
-You can also map non-public members with `AdaptMember` attribute.
+通过给非公开成员添加 `[AdaptMember]` 特性标签实现映射非公开成员：
 
 ```csharp
 public class Product 
@@ -25,9 +25,9 @@ public class Product
 }
 ```
 
-### Map
+### 使用 Map 方法
 
-`Map` command can map to private member by specify name of the members.
+使用 `Map` 方法可以通过指定成员名称映射非公开成员：
 
 ```csharp
 TypeAdapterConfig<TSource, TDestination>
@@ -35,9 +35,9 @@ TypeAdapterConfig<TSource, TDestination>
     .Map("PrivateDestName", "PrivateSrcName");
 ```
 
-### IncludeMember
+### 使用 IncludeMember 方法
 
-With `IncludeMember`, you can select which access modifier to allow.
+使用 `IncludeMember` 方法，可以选择根据成员的访问修饰符决定是否进行映射：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default
@@ -45,11 +45,12 @@ TypeAdapterConfig.GlobalSettings.Default
                                      || member.AccessModifier == AccessModifier.ProtectedInternal);
 ```
 
-### Note for non-public member mapping
+### 映射非公开成员的注意事项
 
-If type doesn't contain public properties, Mapster will treat type as primitive, you must also declare type pair to ensure Mapster will apply non-public member mapping.
+如果类型中不存在任何公开成员，Mapster 将不会映射非公开成员，若要实现非公开成员映射，那么需要显示的配置映射：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default.EnableNonPublicMembers(true);
 TypeAdapterConfig<PrivatePoco, PrivateDto>.NewConfig();
 ```
+

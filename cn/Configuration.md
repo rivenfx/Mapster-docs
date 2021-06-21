@@ -18,7 +18,7 @@ TypeAdapterConfig<TSource, TDestination>
 
 
 
-如果你不想覆盖之前已经创建好的映射配置，那你可以使用  `TypeAdapterConfig<TSource, TDestination>.ForType()`；
+如若不想覆盖之前已经创建好的映射配置，可以使用  `TypeAdapterConfig<TSource, TDestination>.ForType()`；
 
 `ForType` 方法与 `NewConfig` 的差别：如果指定类型映射配置不存在，那它将创建一个新的映射，如果指定类型的映射配置已存在，那么它将会扩展已有的映射配置，而不是删除或替换已有的映射配置。
 

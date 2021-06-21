@@ -2,18 +2,18 @@
 
 ### TextTemplate
 ```
-    PM> Install-Package ExpressionTranslator
+PM> Install-Package ExpressionTranslator
 ```
 
-Although Mapster allow you to [step-into debugging](https://github.com/MapsterMapper/Mapster/wiki/Debugging), but all mapping are generated at runtime. Therefore, error will be captured at runtime, and we also lose the power of static analysis to find the usage.
+虽然 Mapster 支持 [步进调试](Debugging.md)，但是所有映射都是在运行时生成的。所有可能的映射错误在运行时捕获，导致我们失去了静态分析查找问题的能力。
 
-Here are steps to add code generation.
+下面是添加代码生成的步骤：
 
-1. Create text template
+1. 创建文本模板
 
-![image](https://user-images.githubusercontent.com/5763993/56052976-f9377580-5d7c-11e9-841c-0a911fdb3a7f.png)
+   ![image-20210613142044945](TextTemplate.assets/image-20210613142044945.png)
 
-2. In template, add references & mapping logic
+2. 在模板中，添加引用和映射逻辑
 
 ```xml
 <#@ template debug="true" language="C#" #>
@@ -48,55 +48,57 @@ Here are steps to add code generation.
 #>
 ```
 
-3. Generate code by right click on template file, and select `Run Custom Tool`.
+3. 通过右键单击模板文件生成代码，并选择 `运行自定义工具`。
 
-That's it. Done!
+通过以上三个步骤就完成了。
 
 ---
 
-## Information
+## 更多信息
 
 ### Links
 
-- Example: [CustomerMapper](
+- 例子: [CustomerMapper](
 https://github.com/MapsterMapper/Mapster/blob/master/src/Benchmark/CustomerMapper.tt)
 - [T4 Documentation](https://docs.microsoft.com/en-us/visualstudio/modeling/code-generation-and-t4-text-templates?view=vs-2019) (Microsoft)
 
 ### Q & A
 
-Q: How to pass lambda to Before/After mapping?  
-A: Please use `BeforeMappingInline` and `AfterMappingInline` instead. [link](https://github.com/MapsterMapper/Mapster/wiki/Before-after-mapping)
+Q: 如何传递lambda到之前/之后映射?
 
-Q: Can I generate multiple outputs from single template?  
-A: You can. [link](https://stackoverflow.com/questions/33575419/how-to-create-multiple-output-files-from-a-single-t4-template-using-tangible-edi)
+A: 使用 `BeforeMappingInline`和`AfterMappingInline` 代替。[查看更多资料](Before-after-mapping.md)
 
-Q: After running template file, it said library XXX not found.  
-A: Some unused libraries will be excluded during build. You can direct reference to dll in template file. Or tell Visual Studio to copy all reference libraries to output. [link](https://stackoverflow.com/questions/43837638/how-to-get-net-core-projects-to-copy-nuget-references-to-build-output/43841481)
+Q: 可以从一个模板生成多个输出吗? 
+A: 可以。[查看更多资料](https://stackoverflow.com/questions/33575419/how-to-create-multiple-output-files-from-a-single-t4-template-using-tangible-edi)
+
+Q: 运行模板文件后，提示找不到库XXX。
+A: 一些未使用的库将在构建期间被排除。你可以直接引用模板文件中的dll。或者告诉Visual Studio将所有参考库复制到输出。[查看更多资料](https://stackoverflow.com/questions/43837638/how-to-get-net-core-projects-to-copy-nuget-references-to-build-output/43841481)
 
 ```xml
-<!-- This setting will copy all references to output -->
+<!-- 这个设置将把所有引用复制到输出 -->
 <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
-<!-- This setting apply only Debug build -->
+<!-- 这个设置只会在DEBUG模式生效 -->
 <CopyLocalLockFileAssemblies Condition=" '$(Configuration)'=='Debug' ">true</CopyLocalLockFileAssemblies>
 ```
 
-Q: After running template file on Mac, it said `netstandard` is not found.  
-A: You need direct reference.
+Q: 在Mac上运行模板文件后，提示 `netstandard`没有找到。 
+A: 你需要直接的参考：
 
 ```xml
-<!-- Remove this line -->
+<!-- 删除这一行 -->
 <#@ Assembly Name="netstandard" #>
 
-<!-- Change to this line (path might not be the same) -->
+<!-- 更改到这一行(路径可能不一样) -->
 <#@ Assembly Name="/usr/local/share/dotnet/sdk/2.2.103/Microsoft/Microsoft.NET.Build.Extensions/net461/lib/netstandard.dll" #>
 ```
 
-Q: After running template file in .NET Core project on Windows, it said, System.Runtime version 4.2.x.x not found.  
-A: You can build using .NET Framework version. Otherwise, you need to update assembly binding in Visual Studio config file. [link](https://stackoverflow.com/questions/51550265/t4-template-could-not-load-file-or-assembly-system-runtime-version-4-2-0-0)
+Q:  在Windows上运行.NET Core项目中的模板文件后，提示 找不到 `Sytem.Runtime Version 4.2.xx`。
 
-Q: After running template file, it said Compile items are duplicated.  
-A: You can set property to skip generated items.
+A: 你可以使用 .NET Framework 版本来构建。否则，你需要更新Visual Studio配置文件中的程序集绑定。[查看更多资料](https://stackoverflow.com/questions/51550265/t4-template-could-not-load-file-or-assembly-system-runtime-version-4-2-0-0)
+
+Q: 在运行模板文件后，提示编译项是重复的。  
+A: 您可以设置属性来跳过生成的项。
 
 ```xml
 <DefaultItemExcludes>**/*.g.cs</DefaultItemExcludes>

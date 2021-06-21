@@ -48,8 +48,6 @@ var dto = poco.Adapt<Dto>(
 
 ##### 在泛型类或方法中使用 Fork
 
-`Fork` method uses filename and line number and the key. But if you use `Fork` method inside generic class or method, you must specify your own key (with all type names) to prevent `Fork` to return invalid config from different type arguments.
-
 `Fork` 方法默认使用文件名、行号作为键值。但是如果在在泛型类或泛型方法中调用`Fork`方法，必须指定键和类型全名称，防止 `Fork` 从不同的类型参数返回无效的配置。
 
 ```csharp

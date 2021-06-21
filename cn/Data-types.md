@@ -6,7 +6,7 @@
 
 基本类型的转换 ，例如： `int/bool/dobule/decimal`  ，包括可空的基本类型。
 
-只要C#支持的类型转换，那么在 Mapster 中也同样支持转换。
+只要C#支持类型转换的类型，那么在 Mapster 中也同样支持转换。
 
 ```csharp
 decimal i = 123.Adapt<decimal>(); //equal to (decimal)123;
@@ -27,7 +27,7 @@ Mapster 会自动把枚举映射到数字类型，同样也支持 字符串到�
 var e = "Read, Write, Delete".Adapt<FileShare>();  
 //FileShare.Read | FileShare.Write | FileShare.Delete
 ```
-对于不同类型的枚举，Mapster 默认将值映射为枚举。你可以调用 `EnumMappingStrategy` 方法指定枚举映射方式，如：
+对于不同类型的枚举，Mapster 默认将值映射为枚举。调用 `EnumMappingStrategy` 方法可以指定枚举映射方式，如：
 
 ```csharp
 TypeAdapterConfig.GlobalSettings.Default
@@ -45,7 +45,7 @@ TypeAdapterConfig.GlobalSettings.Default
 var s = 123.Adapt<string>(); // 等同于: 123.ToString();
 var i = "123".Adapt<int>();  // 等同于: int.Parse("123");
 ```
-### 
+
 
 ### 集合
 
@@ -55,6 +55,7 @@ var i = "123".Adapt<int>();  // 等同于: int.Parse("123");
 var list = db.Pocos.ToList();
 var target = list.Adapt<IEnumerable<Dto>>();  
 ```
+
 
 
 ### 可映射对象

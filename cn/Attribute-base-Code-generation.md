@@ -1,10 +1,9 @@
-# Attribute base Code generation
+# 基于 Attribute 的代码生成
 
-### Generate models
+### 生成模型
 
-Annotate your class with `[AdaptFrom]`, `[AdaptTo]`, or `[AdaptTwoWays]`.
+在类上标记 `[AdaptFrom]`, `[AdaptTo]`, 或 `[AdaptTwoWays]`：
 
-Example:
 ```csharp
 [AdaptTo("[name]Dto")]
 public class Student {
@@ -12,36 +11,38 @@ public class Student {
 }
 ```
 
-Then Mapster will generate:
+这将会生成：
 ```csharp
 public class StudentDto {
     ...
 }
 ```
 
-#### Ignore some properties on generation
+#### 在生成时忽略一些成员
 
-By default, code generation will ignore properties that annotated `[AdaptIgnore]` attribute. But you can add more settings which include `IgnoreAttributes`, `IgnoreNoAttributes`, `IgnoreNamespaces`.
+默认代码生成将忽略标记了 `[AdaptIgnore]` 特性的成员，但是可以通过 `IgnoreAttributes`, `IgnoreNoAttributes`, `IgnoreNamespaces` 特性标记自定义生成代码忽略成员的逻辑。
 
-Example:
+例如，使用  `IgnoreNoAttributes` 特性配置让没有 `[DataMember]` 特性标记的成员在生成时忽略：
 ```csharp
 [AdaptTo("[name]Dto", IgnoreNoAttributes = new[] { typeof(DataMemberAttribute) })]
 public class Student {
 
     [DataMember]
-    public string Name { get; set; }     //this property will be generated
+    public string Name { get; set; }     // 这个属性将生成到DTO
     
-    public string LastName { get; set; } //this will not be generated
+    public string LastName { get; set; }  // 这个属性将不会生成到DTO
 }
 ```
 
-#### Change property types
+#### 修改属性类型
 
-By default, if property type annotated with the same adapt attribute, code generation will forward to that type. (For example, `Student` has `ICollection<Enrollment>`, after code generation `StudentDto` will has `ICollection<EnrollmentDto>`).
+默认情况下，代码生成将在同一声明上转发类型。例如，`Student` 有`ICollection<Enrollment>`，代码生成后`StudentDto` 将有`ICollection<EnrollmentDto>`。
 
-You can override this by `[PropertyType(typeof(Target))]` attribute. This annotation can be annotated to either on property or on class.
+可以通过 `[PropertyType(typeof(Target))]` 特性标记重写默认行为
 
-For example:
+>  这个特性标记既可以注释到属性上，也可以特性标记到类上。
+
+例：
 ```csharp
 [AdaptTo("[name]Dto")]
 public class Student {
@@ -55,7 +56,7 @@ public class Enrollment {
 }
 ```
 
-This will generate:
+这将生成:
 ```csharp
 public class StudentDto {
     public ICollection<DataItem> Enrollments { get; set; }
@@ -65,11 +66,10 @@ public class EnrollmentDto {
 }
 ```
 
-#### Generate readonly properties
+#### 生成只读属性
 
-For `[AdaptTo]` and `[AdaptTwoWays]`, you can generate readonly properties with `MapToConstructor` setting.
+对于 `[AdaptTo]` 和 `[AdaptTwoWays]` 特性标记，可以通过设置 `MapToConstructor`来生成只读属性:
 
-For example:
 ```csharp
 [AdaptTo("[name]Dto", MapToConstructor = true)]
 public class Student {
@@ -77,7 +77,7 @@ public class Student {
 }
 ```
 
-This will generate:
+这将生成：
 ```csharp
 public class StudentDto {
     public string Name { get; }
@@ -88,11 +88,10 @@ public class StudentDto {
 }
 ```
 
-#### Generate nullable properties
+#### 生成可空属性
 
-For `[AdaptFrom]`, you can generate nullable properties with `IgnoreNullValues` setting.
+对于 `[AdaptFrom]` 特性标记，可以通过设置 `IgnoreNullValues`来生成可空属性:
 
-For example:
 ```csharp
 [AdaptFrom("[name]Merge", IgnoreNullValues = true)]
 public class Student {
@@ -100,19 +99,18 @@ public class Student {
 }
 ```
 
-This will generate:
+这将生成：
 ```csharp
 public class StudentMerge {
     public int? Age { get; set; }
 }
 ```
 
-### Generate extension methods
+### 生成扩展方法
 
-#### Generate using `[GenerateMapper]` attribute
-For any POCOs annotate with `[AdaptFrom]`, `[AdaptTo]`, or `[AdaptTwoWays]`, you can add `[GenerateMapper]` in order to generate extension methods.
+#### 使用 [GenerateMapper] 特性标记
+对于任何带有 `[AdaptFrom]`， `[AdaptTo]` 或 `[AdaptTwoWays]` 特性标记的实体类，可以通过添加 `[GenerateMapper]` 特性标记实现生成扩展方法：
 
-Example:
 ```csharp
 [AdaptTo("[name]Dto"), GenerateMapper]
 public class Student {
@@ -120,7 +118,7 @@ public class Student {
 }
 ```
 
-Then Mapster will generate:
+这将生成：
 ```csharp
 public class StudentDto {
     ...
@@ -132,8 +130,8 @@ public static class StudentMapper {
 }
 ```
 
-#### Configuration
-If you have configuration, it must be in `IRegister`
+#### 配置
+如果有映射配置，它必须在实现了 `IRegister` 的类中：
 
 ```csharp
 public class MyRegister : IRegister
@@ -145,9 +143,9 @@ public class MyRegister : IRegister
 }
 ```
 
-#### Generate using configuration
+#### 使用配置生成
 
-You can also generate extension methods and add extra settings from configuration.
+可以生成扩展方法并从映射配置中添加额外的设置。
 
 ```csharp
 public class MyRegister : IRegister
