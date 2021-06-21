@@ -7,6 +7,9 @@
 
 ## 中文文档目录
 
+**[国内访问地址](https://www.cnblogs.com/staneee/p/14912794.html)**
+
+
 ##### [References](cn/References.md)    （[原文](https://github.com/MapsterMapper/Mapster/wiki)）
 
 ##### 映射
