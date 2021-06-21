@@ -4,7 +4,7 @@
 
 ### 配置实例
 
-在 Mapster 中，默认的配置实例为 `TypeAdapterConfig.GlobalSettings` ，如果需要在不通场景下有不通的设置，Mapster  提供了 `TypeAdapterConfig` 用于实现此需求：
+在 Mapster 中，默认的配置实例为 `TypeAdapterConfig.GlobalSettings` ，如果需要在不同场景下有不同的映射配置，Mapster  提供了 `TypeAdapterConfig` 用于实现此需求：
 
 ```csharp
 var config = new TypeAdapterConfig();

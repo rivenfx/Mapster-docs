@@ -69,5 +69,5 @@ Vehicle vehicle = new Car { Id = 1, Name = "Car", Make = "Toyota" };
 var dto = vehicle.Adapt<Vehicle, VehicleDto>();
 
 dto.ShouldBeOfType<CarDto>();
-((CarDto)dto).Make.ShouldBe("Toyota"); //The 'Make' property doesn't exist in Vehicle
+((CarDto)dto).Make.ShouldBe("Toyota"); // "Make" 属性在 Vehicle 中不存在
 ```
